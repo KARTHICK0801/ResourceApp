@@ -44,13 +44,13 @@ namespace ResourceApp.Controllers
             finally
             {
                 aEmployeeRepository = null;
-                APIOutputResponse.Headers.Add("CallMessage", "InsertStudentM");
+                APIOutputResponse.Headers.Add("CallMessage", "InsertResources");
             }
             return APIOutputResponse;
         }
 
         [Route("UpdateResource")]
-        [HttpPost]
+        [HttpPut]
         public HttpResponseMessage UpdateResources(ResourceM aResourceDa)
         {
             try
@@ -74,10 +74,63 @@ namespace ResourceApp.Controllers
             finally
             {
                 aEmployeeRepository = null;
-                APIOutputResponse.Headers.Add("CallMessage", "InsertStudentM");
+                APIOutputResponse.Headers.Add("CallMessage", "UpdateResources");
             }
             return APIOutputResponse;
         }
+
+        [Route("DeleteResource")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteResource(ResourceM aResourceDa)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    APIOutputResponse = new HttpResponseMessage();
+                    aEmployeeRepository = new ResourceR();
+                    mReponseList = aEmployeeRepository.DeleteResource(aResourceDa);
+                    APIOutputResponse = CreateResponse(2000, "Success", mReponseList);
+                }
+                else
+                {
+                    APIOutputResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                APIOutputResponse = CreateResponse(5000, ex.Message, "");
+            }
+            finally
+            {
+                aEmployeeRepository = null;
+                APIOutputResponse.Headers.Add("CallMessage", "DeleteResource");
+            }
+            return APIOutputResponse;
+        }
+
+        [Route("GetResources")]
+        [HttpGet]
+        public HttpResponseMessage GetResources()
+        {
+            try
+            {
+                aEmployeeRepository = new ResourceR();
+                var employees = aEmployeeRepository.GetResources();
+                APIOutputResponse = CreateResponse(2000, "Success", employees);
+            }
+            catch (Exception ex)
+            {
+                APIOutputResponse = CreateResponse(5000, ex.Message, "");
+            }
+            finally
+            {
+                aEmployeeRepository = null;
+                APIOutputResponse.Headers.Add("CallMessage", "GetResources");
+            }
+            return APIOutputResponse;
+        }
+
 
         [Route("GetString")]
         [HttpGet]

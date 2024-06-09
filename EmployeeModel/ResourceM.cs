@@ -13,6 +13,7 @@ namespace EmployeeModel
         public string ResourceCode { get; set; }
         public string ResourceName { get; set; }
         public string PrimaryPhone { get; set; }
+        public string SecondaryPhone { get; set; }
         public string EmailID { get; set; }
         public bool IsActive { get; set; }
         public AdditionalJson AdditionalInfo { get; set; }

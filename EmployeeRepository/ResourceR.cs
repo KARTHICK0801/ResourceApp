@@ -51,5 +51,45 @@ namespace EmployeeRepository
             }
             return result;
         }
+        public string DeleteResource(ResourceM aResourceU)
+        {
+            string result = "";
+            try
+            {
+                aResourceData = new ResourceD();
+                result = aResourceData.DeleteResource(aResourceU);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                aResourceData.Dispose();
+                aResourceData = null;
+            }
+            return result;
+        }
+
+
+        public List<ResourceM> GetResources()
+        {
+            List<ResourceM> employees = null;
+            try
+            {
+                aResourceData = new ResourceD();
+                employees = aResourceData.GetResources();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                aResourceData.Dispose();
+                aResourceData = null;
+            }
+            return employees;
+        }
     }
 }
